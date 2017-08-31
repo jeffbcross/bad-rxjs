@@ -1,0 +1,7 @@
+
+<h1>{{post?.title}}</h1>
+<p>{{post?.body}}</p>
+
+<br><br>
+<a [routerLink]="['..', prevId]" *ngIf="prevId != null">Previous Post</a>
+<a [routerLink]="['..', nextId]" *ngIf="nextId != null">Next Post</a>

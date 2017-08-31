@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Rx';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
-  posts: Post[];
+  posts: PostWithAuthor[];
   constructor(private post: PostService, private user: UserService) {}
 
   ngOnInit() {

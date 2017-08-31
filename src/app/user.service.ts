@@ -9,6 +9,11 @@ export class UserService {
 
   constructor(private http: Http) { }
 
+  getUser(id: number): Observable<User> {
+    return this.http.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .map(res => res.json());
+  }
+
   getUsersMap(): Observable<UsersMap> {
     return this.http.get('https://jsonplaceholder.typicode.com/users')
       .map(res => res.json())

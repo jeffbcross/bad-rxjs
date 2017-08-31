@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService, Post } from '../post.service';
 import { UserService } from '../user.service';
+import { Observable } from 'rxjs/Rx';
 
 @Component({
   selector: 'app-posts',
@@ -15,13 +16,12 @@ export class PostsComponent implements OnInit {
     this.post
       .fetch()
       .subscribe(posts => {
-        this.user.getUsersMap()
-          .subscribe(users => {
-            this.posts = posts.map(post => ({
-              ...post,
-              authorName: users[post.userId].name
-            }));
-        });
+        Observable.forkJoin(posts
+            .map(post => this.user.getUser(post.userId)
+              .map(user => ({...post, authorName: user.name}))))
+          .subscribe(postsWithAuthor => {
+            this.posts = postsWithAuthor;
+          });
       });
   }
 }

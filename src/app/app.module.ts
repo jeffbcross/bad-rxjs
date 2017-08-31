@@ -26,10 +26,10 @@ import { RouterModule } from '@angular/router';
       path: 'posts',
       pathMatch: 'full',
       component: PostsComponent
-    }/*, {
+    }, {
       path: 'posts/:id',
-      component: PostDetail
-    }*/])
+      component: ItemComponent
+    }])
   ],
   providers: [PostService, UserService],
   bootstrap: [AppComponent]

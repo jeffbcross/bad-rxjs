@@ -1,6 +1,7 @@
-
-<h1>{{post?.title}}</h1>
-<p>{{post?.body}}</p>
+<ng-container *ngIf="(post$ | async) as post">
+  <h1>{{post.title}}</h1>
+  <p>{{post.body}}</p>
+</ng-container>
 
 <br><br>
 <a [routerLink]="['..', prevId]" *ngIf="prevId != null">Previous Post</a>

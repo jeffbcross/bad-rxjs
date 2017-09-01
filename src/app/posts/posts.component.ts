@@ -18,6 +18,9 @@ export class PostsComponent implements OnInit {
     const rawPosts$ = this.post.fetch();
 
     rawPosts$.subscribe(posts => {
+      // Show initial raw post immediately
+      this.posts = posts as <PostWithAuthor>;
+
       // Note: posts$ is a [ Observable<PostWithAuthor> ]
       const posts$ : Array<Observable<PostWithAuthor>> = posts.map(post => {
         return this.user

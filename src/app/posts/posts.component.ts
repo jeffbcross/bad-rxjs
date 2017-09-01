@@ -11,16 +11,15 @@ import 'rxjs/add/operator/map';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
-  posts: PostWithAuthor[];
+  posts$: Observable<Array<PostWithAuthor>>;
+
   constructor(private post: PostService, private user: UserService) {}
 
   ngOnInit() {
-    const rawPosts$ = this.post.fetch();
+    // Show initial raw post immediately
+    const rawPosts$ = this.posts$ = this.post.fetch();
 
     rawPosts$.subscribe(posts => {
-      // Show initial raw post immediately
-      this.posts = posts as <PostWithAuthor>;
-
       // Note: posts$ is a [ Observable<PostWithAuthor> ]
       const posts$ : Array<Observable<PostWithAuthor>> = posts.map(post => {
         return this.user
@@ -28,10 +27,7 @@ export class PostsComponent implements OnInit {
                    .map( user => ({...post, authorName: user.name}));
       });
 
-      Observable.forkJoin(posts$).subscribe(list => {
-        // Assign to update template using *ngFor
-        this.posts = list
-      });
+      this.posts$ = Observable.forkJoin(posts$);
     });
 
   }

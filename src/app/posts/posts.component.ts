@@ -9,10 +9,8 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent {
-  posts$: Observable<Array<PostWithAuthor>> = this.post.loadPosts();
-
-  constructor(private post: PostService) {}
-
+  posts$: Observable<Array<PostWithAuthor>> = this.service.posts$;
+  constructor(private service: PostService) {}
 }
 
 

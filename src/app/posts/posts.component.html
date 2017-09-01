@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let post of posts">
+  <li *ngFor="let post of (posts$ | async)">
     <a [routerLink]="[post.id]">
       {{post.title}}
       <br>

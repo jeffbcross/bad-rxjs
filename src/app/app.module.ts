@@ -10,6 +10,7 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import {POST_ENDPOINT_PROVIDER} from './post.provider';
 
+import './rxjs.operators';
 
 @NgModule({
   declarations: [

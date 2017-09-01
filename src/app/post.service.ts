@@ -2,11 +2,7 @@ import {Inject, Injectable, InjectionToken} from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/merge';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/observable/of';
+
 
 import {UserService} from './user.service';
 import {POST_ENDPOINT_TOKEN} from './post.provider';

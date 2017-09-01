@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {PostService, PostWithAuthor} from '../../post.service';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-item',

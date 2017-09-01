@@ -8,6 +8,8 @@ import { PostService } from './post.service';
 import { UserService } from './user.service';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import {POST_ENDPOINT_PROVIDER} from './post.provider';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { RouterModule } from '@angular/router';
       component: ItemComponent
     }])
   ],
-  providers: [PostService, UserService],
+  providers: [PostService, UserService, POST_ENDPOINT_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

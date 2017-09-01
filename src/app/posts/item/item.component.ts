@@ -16,7 +16,7 @@ export class ItemComponent implements OnInit {
   ngOnInit() {
     const id = parseInt(this.route.snapshot.paramMap.get('id'), 10);
     console.log('id', this.route.snapshot.paramMap);
-    this.postService.fetch().subscribe(posts => {
+    this.postService.post$.subscribe(posts => {
       const index = posts.findIndex(post => post.id === id);
       this.post = posts[index];
       console.log('post', this.post, index, posts);

@@ -3,7 +3,7 @@
     <a [routerLink]="[post.id]">
       {{post.title}}
       <br>
-      <em>by {{post.authorName}}</em>
+      <em *ngIf="post.authorName">by {{post.authorName}}</em>
     </a>
   </li>
 </ul>

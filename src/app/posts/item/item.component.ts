@@ -1,38 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PostService, Post } from '../../post.service';
+import {PostService, PostWithAuthor} from '../../post.service';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css']
 })
-export class ItemComponent implements OnInit {
+export class ItemComponent  {
   prevId: number = null;
   nextId: number = null;
-  post: Post;
+
+  post$: Observable<PostWithAuthor> = this.route.paramMap
+           .map(params=>parseInt(params.get('id'), 10))
+           .mergeMap((id:number)=>{
+             return this.postService.posts$
+                 .map((posts:PostWithAuthor[]) => {
+                   const index = posts.findIndex(post => post.id === id);
+                   this.updateNavigation(posts, index);
+                   return posts[index];
+                 })
+           });
+
   constructor(private route: ActivatedRoute, private postService: PostService) { }
 
-  ngOnInit() {
-    this.route.paramMap.subscribe(params=>{
-      const id = parseInt(params.get('id'), 10);
-      console.log('id', this.route.snapshot.paramMap);
-      this.postService.posts$.subscribe(posts => {
-        const index = posts.findIndex(post => post.id === id);
-        this.post = posts[index];
-        console.log('post', this.post, index, posts);
-        if (index > 0) {
-          this.prevId = posts[index - 1].id;
-        } else {
-          this.prevId = null;
-        }
-
-        if (index < posts.length - 1) {
-          this.nextId = posts[index + 1].id;
-        } else {
-          this.nextId = null;
-        }
-      });
-    });
+  updateNavigation(posts, index) {
+    this.prevId = index > 0 ? posts[index - 1].id : null;
+    this.nextId = index < posts.length - 1 ? posts[index + 1].id : null;
   }
+
 }

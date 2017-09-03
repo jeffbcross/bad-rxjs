@@ -25,6 +25,7 @@ import {POST_ENDPOINT_PROVIDER} from './services/post.provider';
       { path: 'posts',  pathMatch: 'full',  component: PostsComponent },
       { path: 'posts/:id',  component: ItemComponent }
     ])
+
   ],
   providers: [PostService, UserService, POST_ENDPOINT_PROVIDER],
   bootstrap: [AppComponent]

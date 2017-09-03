@@ -56,6 +56,7 @@ The initial code implemented demonstrates a plethora of bad practices and many R
 
 Simply use a terminal command `git checkout <SHA>` to checkout a tutorial step you would like to explore.
 
+
 ```bash
 git checkout 3ffa635  # Review fixes in Step#5
 ```
@@ -64,6 +65,7 @@ git checkout 3ffa635  # Review fixes in Step#5
 > Note: Each step/commit shown above (^) has fixes or improvements to the previous step.
 
 <br/><br/>
+
 
 ## Development server
 

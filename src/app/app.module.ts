@@ -4,13 +4,12 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import { ItemComponent } from './posts/item/item.component';
-import { PostService } from './post.service';
-import { UserService } from './user.service';
+import { PostService } from './services/post.service';
+import { UserService } from './services/user.service';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import {POST_ENDPOINT_PROVIDER} from './post.provider';
 
-import './rxjs.operators';
+import {POST_ENDPOINT_PROVIDER} from './services/post.provider';
 
 @NgModule({
   declarations: [
@@ -21,18 +20,12 @@ import './rxjs.operators';
   imports: [
     BrowserModule,
     HttpModule,
-    RouterModule.forRoot([{
-      path: '',
-      pathMatch: 'full',
-      redirectTo: 'posts'
-    }, {
-      path: 'posts',
-      pathMatch: 'full',
-      component: PostsComponent
-    }, {
-      path: 'posts/:id',
-      component: ItemComponent
-    }])
+    RouterModule.forRoot([
+      { path: '',       pathMatch: 'full',  redirectTo: 'posts' },
+      { path: 'posts',  pathMatch: 'full',  component: PostsComponent },
+      { path: 'posts/:id',  component: ItemComponent }
+    ])
+
   ],
   providers: [PostService, UserService, POST_ENDPOINT_PROVIDER],
   bootstrap: [AppComponent]

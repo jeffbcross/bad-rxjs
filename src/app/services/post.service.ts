@@ -2,7 +2,6 @@ import {Inject, Injectable, InjectionToken} from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import '../services/rxjs.operators';
 
 import {UserService} from './user.service';
 import {POST_ENDPOINT_TOKEN} from './post.provider';
@@ -29,14 +28,14 @@ export class PostService {
   //       Some external observer must subscribe to trigger the call.
   //       The `async` pipe performs the `.subscribe()`/`.unsubscribe()`
 
-  posts$ = this.http.get(this.allPostsUrl)
-      .map(res => res.json())
-      .mergeMap(posts=>{
-        return Observable.of(posts)
-            .merge(Observable.forkJoin(posts
-                .map(post=>this.user.getUser(post.userId)
-                    .map(user=>({...post,  authorName:user.name })))));
-      });
+  readonly posts$: Observable<PostWithAuthor[]> = this.http.get(this.allPostsUrl)
+    .flatMap(res => res.json() as Post[])
+    .mergeMap(post => this.user
+      .getUser(post.userId)
+      .map(user => ({ ...post, authorName: user.name }))
+    )
+    .toArray()
+  ;
 
   constructor(
       private http: Http,

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
 
 
 @Injectable()
@@ -9,9 +8,21 @@ export class UserService {
 
   constructor(private http: Http) { }
 
+  private cache: Map<number, Observable<User>> = new Map();
+
   getUser(id: number): Observable<User> {
-    return this.http.get(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .map(res => res.json());
+    if (this.cache.has(id)) {
+      return this.cache.get(id);
+    }
+
+    const obs$ = this.http.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+      .map(res => res.json() as User)
+      .shareReplay()
+    ;
+
+    this.cache.set(id, obs$);
+
+    return obs$;
   }
 
   getUsersMap(): Observable<UsersMap> {

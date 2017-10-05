@@ -2,7 +2,6 @@ import {Inject, Injectable, InjectionToken} from '@angular/core';
 import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
-import '../services/rxjs.operators';
 
 import {UserService} from './user.service';
 import {POST_ENDPOINT_TOKEN} from './post.provider';
